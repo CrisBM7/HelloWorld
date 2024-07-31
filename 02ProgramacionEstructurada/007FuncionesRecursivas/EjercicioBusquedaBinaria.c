@@ -6,10 +6,10 @@ int busquedaBinaria(int arr[], int izquierda, int derecha, int x)
     if (x > arr[m])
     {
         izquierda = m;
-        izquierda++;
         if (izquierda != derecha)
         {
-            return busquedaBinaria(arr, m, derecha, x);
+            izquierda++;
+            return busquedaBinaria(arr, izquierda, derecha, x);
         }
         else
         {
@@ -19,10 +19,10 @@ int busquedaBinaria(int arr[], int izquierda, int derecha, int x)
     else if (x < arr[m])
     {
         derecha = m;
-        derecha--;
         if (izquierda != derecha)
         {
-            return busquedaBinaria(arr, izquierda, m, x);
+            derecha--;
+            return busquedaBinaria(arr, izquierda, derecha, x);
         }
         else
         {
