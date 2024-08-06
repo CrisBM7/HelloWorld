@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void invertirCadena(char *cad)
+void invertirCadena(char cad[])
 {
     int num = 11;
     char temp;
@@ -25,7 +25,7 @@ int main()
         printf("%c", cad[i]);
     }
 
-    invertirCadena(&cad);
+    invertirCadena(cad);
 
     printf("\nCadena modificada: "); 
 

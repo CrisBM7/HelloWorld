@@ -2,8 +2,7 @@
 
 void duplicarValor(float *x, float *y, float *z)
 {
-    *z = (*x)+(*y);
-    *z = (*z)/2;
+    *z = ((*x)+(*y))/2;
 }
 
 int main()
