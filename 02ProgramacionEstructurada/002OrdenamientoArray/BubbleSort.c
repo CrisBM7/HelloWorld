@@ -4,7 +4,7 @@
 
 int main()
 {
-    int arreglo[N] = {9,5, 2, 8, 1};
+    int arreglo[N] = {9, 5, 2, 8, 1};
     int temp;
     int i, j;
 
