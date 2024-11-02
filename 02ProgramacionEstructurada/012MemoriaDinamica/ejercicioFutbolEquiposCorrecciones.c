@@ -38,8 +38,6 @@ int main() {
     for (int i = 0; i < numCountries; i++) {
         capturarPais(&countries[i], &i);
 
-        printf("Numero de equipos: ");
-        scanf("%d", &countries[i].numTeams);
 
         countries[i].teams = (struct Team *)malloc(countries[i].numTeams * sizeof(struct Team));
 
@@ -69,6 +67,9 @@ void capturarPais(struct Country *country, int *i) {
     fgets(country->nameSelection, sizeof(country->nameSelection), stdin);
     printf("Ranking UEFA del pais: ");
     scanf("%d", &country->ranking);
+    
+        printf("Numero de equipos: ");
+        scanf("%d", &country->numTeams);
     miFflush();
 }
 
@@ -78,7 +79,7 @@ void capturarEquipo(struct Team *team, int *j) {
 
     printf("Nombre del equipo: ");
     fgets(team->name, sizeof(team->name), stdin);
-    miFflush();
+     team->name[strcspn(team->name, "\n")] = '\0';
     printf("Ciudad de origen: ");
     fgets(team->city, sizeof(team->city), stdin);
     printf("Estadio principal: ");
@@ -97,7 +98,7 @@ void imprimirDatos(struct Country *countries, int numCountries) {
 
         for (int j = 0; j < countries[i].numTeams; j++) {
             printf("\nEquipo %d:\n", j + 1);
-            printf("Nombre: %s", countries[i].teams[j].name);
+            printf("Nombre: %s\n", countries[i].teams[j].name);
             printf("Ciudad: %s", countries[i].teams[j].city);
             printf("Estadio: %s", countries[i].teams[j].stadium);
             printf("Anio de Fundacion: %d\n", countries[i].teams[j].year);

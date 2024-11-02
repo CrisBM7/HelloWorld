@@ -7,23 +7,16 @@ void miFflush() {
         ;
 }
 
-struct Team {
-    char name[50];
-    char city[50];
-    char stadium[50];
-    int year;
-};
-
 struct Country {
     char name[50];
     char nameSelection[50];
+    char **teams;
     int ranking;
-    struct Team *teams;
-    int numTeams;        
+    int numTeams;
 };
 
 void capturarPais(struct Country *country, int *i);
-void capturarEquipo(struct Team *team, int *j);
+void capturarEquipo(char team[], int j);
 void imprimirDatos(struct Country *countries, int numCountries);
 
 int main() {
@@ -40,11 +33,12 @@ int main() {
 
         printf("Numero de equipos: ");
         scanf("%d", &countries[i].numTeams);
-
-        countries[i].teams = (struct Team *)malloc(countries[i].numTeams * sizeof(struct Team));
+        miFflush();
+        countries[i].teams = (char **)malloc(countries[i].numTeams * sizeof(char *));
 
         for (int j = 0; j < countries[i].numTeams; j++) {
-            capturarEquipo(&countries[i].teams[j], &j);
+            countries[i].teams[j] = (char *)malloc(20 * sizeof(char));
+            capturarEquipo(countries[i].teams[j], j);
         }
     }
 
@@ -60,32 +54,24 @@ int main() {
 }
 
 void capturarPais(struct Country *country, int *i) {
-    
-    printf("\nPais #%d:\n", *i+1);
+    printf("\nPais #%d:\n", *i + 1);
 
     printf("Nombre del pais: ");
     fgets(country->name, sizeof(country->name), stdin);
+
     printf("Seleccion nacional de futbol: ");
     fgets(country->nameSelection, sizeof(country->nameSelection), stdin);
+
     printf("Ranking UEFA del pais: ");
     scanf("%d", &country->ranking);
     miFflush();
 }
 
-void capturarEquipo(struct Team *team, int *j) {
-
-    printf("\nCapturando datos para el equipo #%d:\n", *j+1);
+void capturarEquipo(char team[], int j) {
+    printf("\nCapturando datos para el equipo #%d:\n", j + 1);
 
     printf("Nombre del equipo: ");
-    fgets(team->name, sizeof(team->name), stdin);
-    miFflush();
-    printf("Ciudad de origen: ");
-    fgets(team->city, sizeof(team->city), stdin);
-    printf("Estadio principal: ");
-    fgets(team->stadium, sizeof(team->stadium), stdin);
-    printf("Anio de fundacion: ");
-    scanf("%d", &team->year);
-    miFflush();
+    fgets(team, 20, stdin);
 }
 
 void imprimirDatos(struct Country *countries, int numCountries) {
@@ -97,10 +83,7 @@ void imprimirDatos(struct Country *countries, int numCountries) {
 
         for (int j = 0; j < countries[i].numTeams; j++) {
             printf("\nEquipo %d:\n", j + 1);
-            printf("Nombre: %s", countries[i].teams[j].name);
-            printf("Ciudad: %s", countries[i].teams[j].city);
-            printf("Estadio: %s", countries[i].teams[j].stadium);
-            printf("Anio de Fundacion: %d\n", countries[i].teams[j].year);
+            printf("Nombre: %s", countries[i].teams[j]);
         }
     }
 }
